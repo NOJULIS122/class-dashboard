@@ -1,25 +1,42 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  --background: #f7fbff;
+  --foreground: #19407a;
+  --brand-blue: #0099ff;
+  --brand-yellow: #fbbc34;
+  --brand-title: rgba(25, 64, 122, 0.9);
+  --brand-text: #849aaa;
+  --brand-pale: #eef9ff;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: Arial, Helvetica, sans-serif;
+  --font-sans: "Open Sans", Arial, Helvetica, sans-serif;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--brand-title);
+  font-family: "Nunito", Arial, Helvetica, sans-serif;
+  font-weight: 800;
 }
 
 button,
 select,
-input {
+input,
+textarea {
   font: inherit;
 }
 
@@ -27,15 +44,64 @@ input {
   margin-top: 0.5rem;
   display: block;
   width: 100%;
-  border-radius: 0.5rem;
-  border: 1px solid #cbd5e1;
+  border-radius: 0.75rem;
+  border: 1px solid #cfe6f5;
   background: white;
-  padding: 0.625rem 0.75rem;
+  padding: 0.7rem 0.85rem;
   font-weight: 400;
+  color: #19407a;
   outline: none;
 }
 
 .form-input:focus {
-  border-color: #6366f1;
-  box-shadow: 0 0 0 3px #e0e7ff;
+  border-color: var(--brand-blue);
+  box-shadow: 0 0 0 3px rgba(0, 153, 255, 0.14);
+}
+
+@utility brand-card {
+  border: 1px solid #d9eefb;
+  border-radius: 1rem;
+  background: white;
+  box-shadow: 0 12px 35px rgba(25, 64, 122, 0.08);
+}
+
+@utility brand-button {
+  border-radius: 0.75rem;
+  background: var(--brand-blue);
+  padding: 0.7rem 1rem;
+  color: white;
+  font-family: "Nunito", Arial, Helvetica, sans-serif;
+  font-weight: 800;
+  box-shadow: 0 8px 20px rgba(0, 153, 255, 0.2);
+  transition: 150ms ease;
+}
+
+.brand-button:hover {
+  background: #0088e6;
+  transform: translateY(-1px);
+}
+
+@utility brand-button-secondary {
+  border: 1px solid #cfe6f5;
+  border-radius: 0.75rem;
+  background: white;
+  padding: 0.65rem 1rem;
+  color: #19407a;
+  font-family: "Nunito", Arial, Helvetica, sans-serif;
+  font-weight: 800;
+  transition: 150ms ease;
+}
+
+.brand-button-secondary:hover {
+  border-color: var(--brand-blue);
+  color: var(--brand-blue);
+}
+
+table th {
+  color: #52789c;
+  font-family: "Nunito", Arial, Helvetica, sans-serif;
+}
+
+table tbody tr {
+  transition: background-color 150ms ease;
 }

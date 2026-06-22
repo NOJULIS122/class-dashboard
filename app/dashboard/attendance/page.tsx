@@ -5,8 +5,8 @@ export default function AttendancePage() {
   return (
     <>
       <PageHeader
-        title="Attendance"
-        description="Choose a group and date, then mark each student's attendance."
+        title="Lankomumas"
+        description="Pasirinkite grupę bei datą ir pažymėkite pamokoje dalyvavusius mokinius."
       />
       <AttendanceRegister />
     </>

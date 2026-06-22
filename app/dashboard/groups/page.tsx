@@ -54,8 +54,8 @@ export default function GroupsPage() {
     ).length;
     const message =
       count > 0
-        ? `Delete ${group.name}? Its ${count} students will become unassigned.`
-        : `Delete ${group.name}?`;
+        ? `Ar tikrai ištrinti grupę „${group.name}“? ${count} mok. liks nepriskirti grupei.`
+        : `Ar tikrai ištrinti grupę „${group.name}“?`;
 
     if (window.confirm(message)) deleteGroup(group.id);
   }
@@ -64,15 +64,15 @@ export default function GroupsPage() {
     <>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <PageHeader
-          title="Groups"
-          description="Create groups and assign schedules and teachers."
+          title="Grupės"
+          description="Kurkite grupes, nustatykite jų tvarkaraščius ir priskirkite mokytojus."
         />
         <button
           type="button"
           onClick={openNewGroup}
-          className="rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-500"
+          className="brand-button text-sm"
         >
-          + Add group
+          + Pridėti grupę
         </button>
       </div>
 
@@ -88,7 +88,7 @@ export default function GroupsPage() {
           return (
             <article
               key={group.id}
-              className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+              className="brand-card p-6"
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
@@ -97,32 +97,32 @@ export default function GroupsPage() {
                   </h2>
                   <p className="mt-2 text-sm text-slate-500">{group.schedule}</p>
                 </div>
-                <span className="rounded-full bg-indigo-50 px-3 py-1 text-sm font-semibold text-indigo-700">
-                  {studentCount} students
+                <span className="rounded-full bg-[#eef9ff] px-3 py-1 text-sm font-bold text-[#0099ff]">
+                  {studentCount} mok.
                 </span>
               </div>
               <div className="mt-6 border-t border-slate-100 pt-4">
                 <p className="text-xs font-medium uppercase text-slate-400">
-                  Teacher
+                  Mokytojas
                 </p>
                 <p className="mt-1 font-semibold text-slate-800">
-                  {teacher?.name ?? "Not assigned"}
+                  {teacher?.name ?? "Nepriskirtas"}
                 </p>
               </div>
               <div className="mt-5 flex gap-4">
                 <button
                   type="button"
                   onClick={() => openEditGroup(group)}
-                  className="text-sm font-semibold text-indigo-600"
+                  className="text-sm font-bold text-[#0099ff]"
                 >
-                  Edit
+                  Redaguoti
                 </button>
                 <button
                   type="button"
                   onClick={() => removeGroup(group)}
-                  className="text-sm font-semibold text-rose-600"
+                  className="text-sm font-bold text-red-500"
                 >
-                  Delete
+                  Ištrinti
                 </button>
               </div>
             </article>
@@ -132,12 +132,12 @@ export default function GroupsPage() {
 
       {isFormOpen && (
         <Modal
-          title={editingId === null ? "Add group" : "Edit group"}
+          title={editingId === null ? "Pridėti grupę" : "Redaguoti grupę"}
           onClose={() => setIsFormOpen(false)}
         >
           <form onSubmit={submitGroup} className="space-y-4 p-6">
             <label className="block text-sm font-semibold text-slate-700">
-              Group name
+              Grupės pavadinimas
               <input
                 required
                 value={form.name}
@@ -148,10 +148,10 @@ export default function GroupsPage() {
               />
             </label>
             <label className="block text-sm font-semibold text-slate-700">
-              Schedule
+              Tvarkaraštis
               <input
                 required
-                placeholder="Example: Mon & Wed · 16:00"
+                placeholder="Pavyzdžiui: pirmadienį ir trečiadienį · 16:00"
                 value={form.schedule}
                 onChange={(event) =>
                   setForm({ ...form, schedule: event.target.value })
@@ -160,7 +160,7 @@ export default function GroupsPage() {
               />
             </label>
             <label className="block text-sm font-semibold text-slate-700">
-              Teacher
+              Mokytojas
               <select
                 value={form.teacherId ?? ""}
                 onChange={(event) =>
@@ -173,7 +173,7 @@ export default function GroupsPage() {
                 }
                 className="form-input"
               >
-                <option value="">Not assigned</option>
+                <option value="">Nepriskirtas</option>
                 {teachers.map((teacher) => (
                   <option key={teacher.id} value={teacher.id}>
                     {teacher.name}
@@ -185,15 +185,15 @@ export default function GroupsPage() {
               <button
                 type="button"
                 onClick={() => setIsFormOpen(false)}
-                className="rounded-lg border border-slate-300 px-4 py-2 font-semibold"
+                className="brand-button-secondary"
               >
-                Cancel
+                Atšaukti
               </button>
               <button
                 type="submit"
-                className="rounded-lg bg-indigo-600 px-4 py-2 font-semibold text-white"
+                className="brand-button"
               >
-                Save group
+                Išsaugoti grupę
               </button>
             </div>
           </form>

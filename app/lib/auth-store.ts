@@ -5,7 +5,7 @@ import { useSyncExternalStore } from "react";
 export type Session =
   | {
       role: "admin";
-      name: "Administrator";
+      name: string;
       email: string;
     }
   | {

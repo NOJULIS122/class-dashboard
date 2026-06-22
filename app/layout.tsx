@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "ClassFlow Dashboard",
-  description: "A class management dashboard for students and teachers",
+  title: "Baltas Triušis | Valdymo sistema",
+  description: "Mokinių, grupių, lankomumo ir mokėjimų valdymo sistema",
 };
 
 export default function RootLayout({
@@ -12,8 +12,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
-      <body className="min-h-full bg-slate-50 text-slate-900">{children}</body>
+    <html lang="lt" className="h-full antialiased">
+      <body className="min-h-full bg-[#f7fbff] text-[#19407a]">
+        {children}
+      </body>
     </html>
   );
 }

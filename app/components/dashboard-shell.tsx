@@ -27,8 +27,8 @@ export default function DashboardShell({
 
   if (!ready || !session) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-950 text-white">
-        Loading…
+      <div className="flex min-h-screen items-center justify-center bg-[#eef9ff] text-[#19407a]">
+        Kraunama…
       </div>
     );
   }
@@ -38,7 +38,7 @@ export default function DashboardShell({
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top_right,_#e2f6ff,_transparent_34%),#f7fbff]">
       <Sidebar session={session} />
       <main className="p-4 sm:p-6 lg:ml-64 lg:p-10">
         <div className="mx-auto max-w-7xl">{children}</div>

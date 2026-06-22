@@ -22,7 +22,7 @@ export default function ContractsPage() {
     students.length === 0 ? 0 : (signedCount / students.length) * 100;
 
   function groupName(groupId: number) {
-    return groups.find((group) => group.id === groupId)?.name ?? "Unassigned";
+    return groups.find((group) => group.id === groupId)?.name ?? "Nepriskirta";
   }
 
   async function uploadPdf(
@@ -34,23 +34,23 @@ export default function ContractsPage() {
     if (!file) return;
 
     if (file.type !== "application/pdf") {
-      setMessage("Please choose a PDF file.");
+      setMessage("Pasirinkite PDF formato bylą.");
       return;
     }
 
     try {
       await saveContractPdf(studentId, file);
       setContractFile(studentId, file.name);
-      setMessage(`${file.name} was saved.`);
+      setMessage(`Byla „${file.name}“ išsaugota.`);
     } catch {
-      setMessage("The PDF could not be saved in this browser.");
+      setMessage("PDF bylos nepavyko išsaugoti šioje naršyklėje.");
     }
   }
 
   async function viewPdf(studentId: number) {
     const file = await getContractPdf(studentId);
     if (!file) {
-      setMessage("This PDF is not available in this browser.");
+      setMessage("Šios PDF bylos naršyklėje nėra.");
       return;
     }
 
@@ -60,23 +60,27 @@ export default function ContractsPage() {
   }
 
   async function removePdf(studentId: number) {
-    if (!window.confirm("Remove this contract PDF and mark it not signed?")) {
+    if (
+      !window.confirm(
+        "Ar pašalinti sutarties PDF bylą ir pažymėti sutartį kaip nepasirašytą?",
+      )
+    ) {
       return;
     }
     await deleteContractPdf(studentId);
     setContractFile(studentId);
-    setMessage("Contract PDF removed.");
+    setMessage("Sutarties PDF byla pašalinta.");
   }
 
   return (
     <>
       <PageHeader
-        title="Contracts"
-        description="Upload each signed contract as a PDF and open it whenever you need it."
+        title="Sutartys"
+        description="Įkelkite pasirašytas sutartis PDF formatu ir bet kada jas peržiūrėkite."
       />
 
       {message && (
-        <div className="mb-5 flex items-center justify-between rounded-xl bg-indigo-50 px-4 py-3 text-sm text-indigo-700">
+        <div className="mb-5 flex items-center justify-between rounded-2xl bg-[#eef9ff] px-4 py-3 text-sm font-semibold text-[#0078c8]">
           <span>{message}</span>
           <button type="button" onClick={() => setMessage("")}>
             ×
@@ -84,12 +88,12 @@ export default function ContractsPage() {
         </div>
       )}
 
-      <div className="mb-6 rounded-2xl bg-indigo-600 p-6 text-white shadow-sm">
-        <p className="text-sm font-medium text-indigo-100">Signed contracts</p>
+      <div className="mb-6 rounded-2xl bg-[#0099ff] p-6 text-white shadow-[0_18px_40px_rgba(0,153,255,0.2)]">
+        <p className="text-sm font-bold text-white/75">Pasirašytos sutartys</p>
         <p className="mt-2 text-4xl font-bold">
-          {signedCount} of {students.length}
+          {signedCount} iš {students.length}
         </p>
-        <div className="mt-4 h-2 overflow-hidden rounded-full bg-indigo-400">
+        <div className="mt-4 h-2 overflow-hidden rounded-full bg-white/25">
           <div
             className="h-full rounded-full bg-white"
             style={{ width: `${progress}%` }}
@@ -97,16 +101,16 @@ export default function ContractsPage() {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+      <div className="brand-card overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
-            <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
+            <thead className="bg-[#eef9ff] text-xs uppercase tracking-wide">
               <tr>
-                <th className="px-5 py-4 font-semibold">Student</th>
-                <th className="px-5 py-4 font-semibold">Group</th>
-                <th className="px-5 py-4 font-semibold">Status</th>
-                <th className="px-5 py-4 font-semibold">PDF file</th>
-                <th className="px-5 py-4 font-semibold">Actions</th>
+                <th className="px-5 py-4 font-semibold">Mokinys</th>
+                <th className="px-5 py-4 font-semibold">Grupė</th>
+                <th className="px-5 py-4 font-semibold">Būsena</th>
+                <th className="px-5 py-4 font-semibold">PDF byla</th>
+                <th className="px-5 py-4 font-semibold">Veiksmai</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -122,11 +126,11 @@ export default function ContractsPage() {
                     <StatusBadge status={student.contractStatus} />
                   </td>
                   <td className="max-w-56 truncate px-5 py-4 text-slate-600">
-                    {student.contractFileName ?? "No PDF uploaded"}
+                    {student.contractFileName ?? "PDF neįkeltas"}
                   </td>
                   <td className="whitespace-nowrap px-5 py-4">
-                    <label className="cursor-pointer font-semibold text-indigo-600 hover:text-indigo-500">
-                      {student.contractFileName ? "Replace" : "Upload PDF"}
+                    <label className="cursor-pointer font-bold text-[#0099ff] hover:text-[#0078c8]">
+                      {student.contractFileName ? "Pakeisti" : "Įkelti PDF"}
                       <input
                         type="file"
                         accept="application/pdf,.pdf"
@@ -139,16 +143,16 @@ export default function ContractsPage() {
                         <button
                           type="button"
                           onClick={() => viewPdf(student.id)}
-                          className="ml-4 font-semibold text-emerald-600"
+                          className="ml-4 font-bold text-emerald-600"
                         >
-                          View
+                          Peržiūrėti
                         </button>
                         <button
                           type="button"
                           onClick={() => removePdf(student.id)}
-                          className="ml-4 font-semibold text-rose-600"
+                          className="ml-4 font-bold text-red-500"
                         >
-                          Remove
+                          Pašalinti
                         </button>
                       </>
                     ) : (
@@ -162,12 +166,12 @@ export default function ContractsPage() {
                               : "Signed",
                           )
                         }
-                        className="ml-4 font-semibold text-slate-600"
+                        className="ml-4 font-bold text-[#52789c]"
                       >
-                        Mark{" "}
+                        Pažymėti:{" "}
                         {student.contractStatus === "Signed"
-                          ? "not signed"
-                          : "signed"}
+                          ? "nepasirašyta"
+                          : "pasirašyta"}
                       </button>
                     )}
                   </td>

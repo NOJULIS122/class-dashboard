@@ -13,20 +13,21 @@ export default function DashboardPage() {
     (student) => student.contractStatus === "Signed",
   ).length;
   const stats = [
-    { label: "Students", value: students.length, color: "bg-indigo-500" },
-    { label: "Teachers", value: teachers.length, color: "bg-sky-500" },
-    { label: "Active groups", value: groups.length, color: "bg-violet-500" },
+    { label: "Mokiniai", value: students.length, icon: "👩‍🎓", color: "#0099ff" },
+    { label: "Mokytojai", value: teachers.length, icon: "🧑‍🏫", color: "#fbbc34" },
+    { label: "Aktyvios grupės", value: groups.length, icon: "◇", color: "#64b5f6" },
     {
-      label: "June payments",
+      label: "Birželio mokėjimai",
       value: `${paidStudents}/${students.length}`,
-      color: "bg-emerald-500",
+      icon: "€",
+      color: "#49b675",
     },
   ];
 
   function confirmReset() {
     if (
       window.confirm(
-        "Reset all students, groups, teachers, payments, contracts, and attendance to the original sample data?",
+        "Ar tikrai atkurti pradinius mokinių, grupių, mokytojų, mokėjimų, sutarčių ir lankomumo duomenis?",
       )
     ) {
       resetData();
@@ -37,100 +38,107 @@ export default function DashboardPage() {
     <>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <PageHeader
-          title="Dashboard"
-          description="Your class information is saved automatically in this browser."
+          title="Valdymo skydelis"
+          description="Visa būrelių informacija išsaugoma automatiškai šioje naršyklėje."
         />
         <button
           type="button"
           onClick={confirmReset}
-          className="rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-100"
+          className="brand-button-secondary text-sm"
         >
-          Reset sample data
+          Atkurti pradinius duomenis
         </button>
       </div>
 
       <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {stats.map((stat) => (
-          <article
-            key={stat.label}
-            className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
-          >
-            <div className={`mb-4 h-2 w-12 rounded-full ${stat.color}`} />
-            <p className="text-3xl font-bold text-slate-950">{stat.value}</p>
-            <p className="mt-1 text-sm text-slate-500">{stat.label}</p>
+          <article key={stat.label} className="brand-card relative overflow-hidden p-5">
+            <div
+              className="absolute -right-5 -top-5 h-24 w-24 rounded-full opacity-10"
+              style={{ backgroundColor: stat.color }}
+            />
+            <div
+              className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl text-lg font-extrabold text-white"
+              style={{ backgroundColor: stat.color }}
+            >
+              {stat.icon}
+            </div>
+            <p className="text-3xl font-extrabold text-[#19407a]">{stat.value}</p>
+            <p className="mt-1 text-sm text-[#849aaa]">{stat.label}</p>
           </article>
         ))}
       </section>
 
       <section className="mt-8 grid gap-6 xl:grid-cols-[1.4fr_0.6fr]">
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <div className="mb-5 flex items-center justify-between">
+        <div className="brand-card p-6">
+          <div className="mb-5 flex items-center justify-between gap-4">
             <div>
-              <h2 className="text-lg font-semibold">Class groups</h2>
-              <p className="text-sm text-slate-500">
-                Current schedule and enrollment
+              <h2 className="text-xl">Būrelių grupės</h2>
+              <p className="text-sm text-[#849aaa]">
+                Dabartinis tvarkaraštis ir mokinių skaičius
               </p>
             </div>
             <Link
               href="/dashboard/groups"
-              className="text-sm font-semibold text-indigo-600"
+              className="text-sm font-bold text-[#0099ff]"
             >
-              Manage groups
+              Tvarkyti grupes
             </Link>
           </div>
           <div className="space-y-3">
             {groups.length === 0 && (
-              <p className="rounded-xl bg-slate-50 p-5 text-slate-500">
-                No groups have been created.
+              <p className="rounded-2xl bg-[#eef9ff] p-5 text-[#849aaa]">
+                Grupių dar nėra.
               </p>
             )}
             {groups.map((group) => (
               <div
                 key={group.id}
-                className="flex items-center justify-between gap-4 rounded-xl bg-slate-50 p-4"
+                className="flex items-center justify-between gap-4 rounded-2xl bg-[#f7fcff] p-4"
               >
                 <div>
-                  <p className="font-semibold text-slate-900">{group.name}</p>
-                  <p className="mt-1 text-sm text-slate-500">
-                    {group.schedule}
-                  </p>
+                  <p className="font-bold text-[#19407a]">{group.name}</p>
+                  <p className="mt-1 text-sm text-[#849aaa]">{group.schedule}</p>
                 </div>
-                <span className="rounded-lg bg-white px-3 py-2 text-sm font-medium text-slate-600 shadow-sm">
+                <span className="rounded-xl bg-white px-3 py-2 text-sm font-bold text-[#52789c] shadow-sm">
                   {
                     students.filter(
                       (student) => student.groupId === group.id,
                     ).length
                   }{" "}
-                  students
+                  mok.
                 </span>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="rounded-2xl bg-slate-950 p-6 text-white shadow-sm">
-          <h2 className="text-lg font-semibold">Needs attention</h2>
-          <p className="mt-1 text-sm text-slate-400">
-            Items that still need follow-up.
+        <div className="rounded-2xl bg-[#0099ff] p-6 text-white shadow-[0_18px_40px_rgba(0,153,255,0.2)]">
+          <div className="mb-4 h-1.5 w-12 rounded-full bg-[#fbbc34]" />
+          <h2 className="text-xl text-white">Reikia dėmesio</h2>
+          <p className="mt-1 text-sm text-white/75">
+            Neužbaigti darbai, kuriuos verta patikrinti.
           </p>
           <div className="mt-6 space-y-4">
             <Link
               href="/dashboard/payments"
-              className="block rounded-xl bg-slate-900 p-4 hover:bg-slate-800"
+              className="block rounded-2xl bg-white/14 p-4 transition hover:bg-white/20"
             >
-              <p className="text-2xl font-bold">
+              <p className="text-3xl font-extrabold text-white">
                 {students.length - paidStudents}
               </p>
-              <p className="text-sm text-slate-400">Unpaid monthly fees</p>
+              <p className="text-sm text-white/75">
+                Nesumokėti birželio mokėjimai
+              </p>
             </Link>
             <Link
               href="/dashboard/contracts"
-              className="block rounded-xl bg-slate-900 p-4 hover:bg-slate-800"
+              className="block rounded-2xl bg-white/14 p-4 transition hover:bg-white/20"
             >
-              <p className="text-2xl font-bold">
+              <p className="text-3xl font-extrabold text-white">
                 {students.length - signedContracts}
               </p>
-              <p className="text-sm text-slate-400">Unsigned contracts</p>
+              <p className="text-sm text-white/75">Nepasirašytos sutartys</p>
             </Link>
           </div>
         </div>

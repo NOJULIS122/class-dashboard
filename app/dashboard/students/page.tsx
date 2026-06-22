@@ -38,7 +38,7 @@ export default function StudentsPage() {
   );
 
   function groupName(groupId: number) {
-    return groups.find((group) => group.id === groupId)?.name ?? "Unassigned";
+    return groups.find((group) => group.id === groupId)?.name ?? "Nepriskirta";
   }
 
   function openNewStudent() {
@@ -80,7 +80,7 @@ export default function StudentsPage() {
   }
 
   function removeStudent(student: Student) {
-    if (window.confirm(`Delete ${studentFullName(student)}?`)) {
+    if (window.confirm(`Ar tikrai ištrinti mokinį ${studentFullName(student)}?`)) {
       deleteStudent(student.id);
     }
   }
@@ -98,42 +98,42 @@ export default function StudentsPage() {
     <>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <PageHeader
-          title="Students"
-          description="Manage student contact details, Minecraft accounts, groups, payments, and contracts."
+          title="Mokiniai"
+          description="Tvarkykite mokinių kontaktus, Minecraft paskyras, grupes, mokėjimus ir sutartis."
         />
         <button
           type="button"
           onClick={openNewStudent}
-          className="rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-500"
+          className="brand-button text-sm"
         >
-          + Add student
+          + Pridėti mokinį
         </button>
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-        <div className="border-b border-slate-200 px-6 py-4 text-sm font-medium text-slate-600">
-          {students.length} students
+      <div className="brand-card overflow-hidden">
+        <div className="border-b border-[#d9eefb] bg-[#f7fcff] px-6 py-4 text-sm font-bold text-[#52789c]">
+          Mokinių skaičius: {students.length}
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
-            <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
+            <thead className="bg-[#eef9ff] text-xs uppercase tracking-wide">
               <tr>
-                <th className="px-4 py-4 font-semibold">First name</th>
-                <th className="px-4 py-4 font-semibold">Last name</th>
-                <th className="px-4 py-4 font-semibold">Age</th>
-                <th className="px-4 py-4 font-semibold">Phone number</th>
-                <th className="px-4 py-4 font-semibold">Student email</th>
-                <th className="px-4 py-4 font-semibold">Minecraft email</th>
-                <th className="px-4 py-4 font-semibold">Minecraft password</th>
-                <th className="px-4 py-4 font-semibold">Group</th>
-                <th className="px-4 py-4 font-semibold">Payments</th>
-                <th className="px-4 py-4 font-semibold">Contract</th>
-                <th className="px-4 py-4 font-semibold">Actions</th>
+                <th className="px-4 py-4 font-semibold">Vardas</th>
+                <th className="px-4 py-4 font-semibold">Pavardė</th>
+                <th className="px-4 py-4 font-semibold">Amžius</th>
+                <th className="px-4 py-4 font-semibold">Telefono numeris</th>
+                <th className="px-4 py-4 font-semibold">Mokinio el. paštas</th>
+                <th className="px-4 py-4 font-semibold">Minecraft el. paštas</th>
+                <th className="px-4 py-4 font-semibold">Minecraft slaptažodis</th>
+                <th className="px-4 py-4 font-semibold">Grupė</th>
+                <th className="px-4 py-4 font-semibold">Mokėjimai</th>
+                <th className="px-4 py-4 font-semibold">Sutartis</th>
+                <th className="px-4 py-4 font-semibold">Veiksmai</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-[#eaf3f8]">
               {students.map((student) => (
-                <tr key={student.id} className="hover:bg-slate-50">
+                <tr key={student.id} className="hover:bg-[#f7fcff]">
                   <td className="whitespace-nowrap px-4 py-4 font-semibold">
                     {student.firstName}
                   </td>
@@ -151,7 +151,7 @@ export default function StudentsPage() {
                     {student.minecraftEmail || "—"}
                   </td>
                   <td className="whitespace-nowrap px-4 py-4">
-                    <span className="font-mono text-slate-700">
+                    <span className="font-mono text-[#52789c]">
                       {student.minecraftPassword
                         ? visiblePasswords.has(student.id)
                           ? student.minecraftPassword
@@ -162,9 +162,9 @@ export default function StudentsPage() {
                       <button
                         type="button"
                         onClick={() => togglePassword(student.id)}
-                        className="ml-2 text-xs font-semibold text-indigo-600"
+                        className="ml-2 text-xs font-bold text-[#0099ff]"
                       >
-                        {visiblePasswords.has(student.id) ? "Hide" : "Show"}
+                        {visiblePasswords.has(student.id) ? "Slėpti" : "Rodyti"}
                       </button>
                     )}
                   </td>
@@ -186,16 +186,16 @@ export default function StudentsPage() {
                     <button
                       type="button"
                       onClick={() => openEditStudent(student)}
-                      className="font-semibold text-indigo-600"
+                      className="font-bold text-[#0099ff]"
                     >
-                      Edit
+                      Redaguoti
                     </button>
                     <button
                       type="button"
                       onClick={() => removeStudent(student)}
-                      className="ml-4 font-semibold text-rose-600"
+                      className="ml-4 font-bold text-red-500"
                     >
-                      Delete
+                      Ištrinti
                     </button>
                   </td>
                 </tr>
@@ -207,11 +207,11 @@ export default function StudentsPage() {
 
       {isFormOpen && (
         <Modal
-          title={editingId === null ? "Add student" : "Edit student"}
+          title={editingId === null ? "Pridėti mokinį" : "Redaguoti mokinį"}
           onClose={() => setIsFormOpen(false)}
         >
           <form onSubmit={submitStudent} className="grid gap-4 p-6 sm:grid-cols-2">
-            <FormField label="First name">
+            <FormField label="Vardas">
               <input
                 required
                 value={form.firstName}
@@ -221,7 +221,7 @@ export default function StudentsPage() {
                 className="form-input"
               />
             </FormField>
-            <FormField label="Last name">
+            <FormField label="Pavardė">
               <input
                 required
                 value={form.lastName}
@@ -231,7 +231,7 @@ export default function StudentsPage() {
                 className="form-input"
               />
             </FormField>
-            <FormField label="Age">
+            <FormField label="Amžius">
               <input
                 required
                 type="number"
@@ -244,7 +244,7 @@ export default function StudentsPage() {
                 className="form-input"
               />
             </FormField>
-            <FormField label="Phone number">
+            <FormField label="Telefono numeris">
               <input
                 required
                 type="tel"
@@ -255,7 +255,7 @@ export default function StudentsPage() {
                 className="form-input"
               />
             </FormField>
-            <FormField label="Student email">
+            <FormField label="Mokinio el. paštas">
               <input
                 required
                 type="email"
@@ -266,7 +266,7 @@ export default function StudentsPage() {
                 className="form-input"
               />
             </FormField>
-            <FormField label="Minecraft login email">
+            <FormField label="Minecraft el. paštas">
               <input
                 required
                 type="email"
@@ -277,7 +277,7 @@ export default function StudentsPage() {
                 className="form-input"
               />
             </FormField>
-            <FormField label="Minecraft password">
+            <FormField label="Minecraft slaptažodis">
               <input
                 required
                 type="text"
@@ -288,7 +288,7 @@ export default function StudentsPage() {
                 className="form-input"
               />
             </FormField>
-            <FormField label="Notes">
+            <FormField label="Pastabos">
               <textarea
                 value={form.notes}
                 onChange={(event) =>
@@ -296,10 +296,10 @@ export default function StudentsPage() {
                 }
                 rows={3}
                 className="form-input resize-y"
-                placeholder="Learning needs or useful class notes"
+                placeholder="Mokymosi poreikiai arba svarbios pastabos"
               />
             </FormField>
-            <FormField label="Group">
+            <FormField label="Grupė">
               <select
                 value={form.groupId}
                 onChange={(event) =>
@@ -307,7 +307,7 @@ export default function StudentsPage() {
                 }
                 className="form-input"
               >
-                <option value={0}>Unassigned</option>
+                <option value={0}>Nepriskirta</option>
                 {groups.map((group) => (
                   <option key={group.id} value={group.id}>
                     {group.name}
@@ -315,7 +315,7 @@ export default function StudentsPage() {
                 ))}
               </select>
             </FormField>
-            <FormField label="Parent name">
+            <FormField label="Tėvų vardas">
               <input
                 required
                 value={form.parentName}
@@ -325,7 +325,7 @@ export default function StudentsPage() {
                 className="form-input"
               />
             </FormField>
-            <FormField label="Parent email">
+            <FormField label="Tėvų el. paštas">
               <input
                 required
                 type="email"
@@ -340,15 +340,15 @@ export default function StudentsPage() {
               <button
                 type="button"
                 onClick={() => setIsFormOpen(false)}
-                className="rounded-lg border border-slate-300 px-4 py-2 font-semibold"
+                className="brand-button-secondary"
               >
-                Cancel
+                Atšaukti
               </button>
               <button
                 type="submit"
-                className="rounded-lg bg-indigo-600 px-4 py-2 font-semibold text-white"
+                className="brand-button"
               >
-                Save student
+                Išsaugoti mokinį
               </button>
             </div>
           </form>
@@ -366,7 +366,7 @@ function FormField({
   children: React.ReactNode;
 }) {
   return (
-    <label className="block text-sm font-semibold text-slate-700">
+    <label className="block text-sm font-bold text-[#19407a]">
       {label}
       {children}
     </label>

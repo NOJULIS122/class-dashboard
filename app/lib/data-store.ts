@@ -57,8 +57,29 @@ function load() {
       };
       data = {
         ...saved,
+        groups: saved.groups.map((group) => ({
+          ...group,
+          name:
+            {
+              "English Beginners": "Minecraft pradedantiesiems",
+              "English Advanced": "Minecraft pažengusiems",
+              "Math Explorers": "Minecraft kūrėjai",
+              "Creative Writing": "Minecraft programuotojai",
+            }[group.name] ?? group.name,
+          schedule:
+            {
+              "Mon & Wed · 16:00": "Pirmadienį ir trečiadienį · 16:00",
+              "Tue & Thu · 18:00": "Antradienį ir ketvirtadienį · 18:00",
+              "Saturday · 10:00": "Šeštadienį · 10:00",
+              "Friday · 17:00": "Penktadienį · 17:00",
+            }[group.schedule] ?? group.schedule,
+        })),
         teachers: saved.teachers.map((teacher) => ({
           ...teacher,
+          email: teacher.email.replace(
+            "@classflow.test",
+            "@baltastriusis.lt",
+          ),
           password: teacher.password ?? "teacher123",
         })),
         students: saved.students.map((student) => {
@@ -73,7 +94,16 @@ function load() {
             email: student.email ?? "",
             minecraftEmail: student.minecraftEmail ?? "",
             minecraftPassword: student.minecraftPassword ?? "",
-            notes: student.notes ?? "",
+            notes:
+              {
+                "Prefers building exercises.":
+                  "Labiausiai mėgsta statymo užduotis.",
+                "Needs help with commands.": "Reikia pagalbos su komandomis.",
+                "Works best near the teacher.":
+                  "Geriausiai dirba šalia mokytojo.",
+              }[student.notes ?? ""] ??
+              student.notes ??
+              "",
             parentName: student.parentName ?? "",
             parentEmail: student.parentEmail ?? "",
             groupId: student.groupId ?? 0,

@@ -46,7 +46,7 @@ export default function TeachersPage() {
   function removeTeacher(teacher: Teacher) {
     if (
       window.confirm(
-        `Delete ${teacher.name}? Their groups will become unassigned.`,
+        `Ar tikrai ištrinti mokytoją ${teacher.name}? Jo grupės liks be priskirto mokytojo.`,
       )
     ) {
       deleteTeacher(teacher.id);
@@ -57,15 +57,15 @@ export default function TeachersPage() {
     <>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <PageHeader
-          title="Teachers"
-          description="Add teachers and view the groups assigned to them."
+          title="Mokytojai"
+          description="Pridėkite mokytojus, tvarkykite jų prisijungimus ir matykite priskirtas grupes."
         />
         <button
           type="button"
           onClick={openNewTeacher}
-          className="rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-500"
+          className="brand-button text-sm"
         >
-          + Add teacher
+          + Pridėti mokytoją
         </button>
       </div>
 
@@ -78,9 +78,9 @@ export default function TeachersPage() {
           return (
             <article
               key={teacher.id}
-              className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+              className="brand-card p-6"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 text-lg font-bold text-indigo-700">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#eef9ff] text-lg font-extrabold text-[#0099ff]">
                 {teacher.name
                   .split(" ")
                   .map((part) => part[0])
@@ -90,16 +90,16 @@ export default function TeachersPage() {
               <p className="mt-1 text-sm text-slate-500">{teacher.email}</p>
               <div className="mt-5 border-t border-slate-100 pt-4">
                 <p className="mb-3 text-xs font-semibold uppercase text-slate-400">
-                  Assigned groups
+                  Priskirtos grupės
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {assignedGroups.length === 0 && (
-                    <span className="text-sm text-slate-500">No groups</span>
+                    <span className="text-sm text-[#849aaa]">Grupių nėra</span>
                   )}
                   {assignedGroups.map((group) => (
                     <span
                       key={group.id}
-                      className="rounded-full bg-slate-100 px-3 py-1.5 text-sm"
+                      className="rounded-full bg-[#eef9ff] px-3 py-1.5 text-sm font-semibold text-[#52789c]"
                     >
                       {group.name}
                     </span>
@@ -110,16 +110,16 @@ export default function TeachersPage() {
                 <button
                   type="button"
                   onClick={() => openEditTeacher(teacher)}
-                  className="text-sm font-semibold text-indigo-600"
+                  className="text-sm font-bold text-[#0099ff]"
                 >
-                  Edit
+                  Redaguoti
                 </button>
                 <button
                   type="button"
                   onClick={() => removeTeacher(teacher)}
-                  className="text-sm font-semibold text-rose-600"
+                  className="text-sm font-bold text-red-500"
                 >
-                  Delete
+                  Ištrinti
                 </button>
               </div>
             </article>
@@ -129,12 +129,12 @@ export default function TeachersPage() {
 
       {isFormOpen && (
         <Modal
-          title={editingId === null ? "Add teacher" : "Edit teacher"}
+          title={editingId === null ? "Pridėti mokytoją" : "Redaguoti mokytoją"}
           onClose={() => setIsFormOpen(false)}
         >
           <form onSubmit={submitTeacher} className="space-y-4 p-6">
             <label className="block text-sm font-semibold text-slate-700">
-              Teacher name
+              Mokytojo vardas ir pavardė
               <input
                 required
                 value={form.name}
@@ -145,7 +145,7 @@ export default function TeachersPage() {
               />
             </label>
             <label className="block text-sm font-semibold text-slate-700">
-              Email
+              El. paštas
               <input
                 required
                 type="email"
@@ -157,7 +157,7 @@ export default function TeachersPage() {
               />
             </label>
             <label className="block text-sm font-semibold text-slate-700">
-              Login password
+              Prisijungimo slaptažodis
               <input
                 required
                 minLength={6}
@@ -173,15 +173,15 @@ export default function TeachersPage() {
               <button
                 type="button"
                 onClick={() => setIsFormOpen(false)}
-                className="rounded-lg border border-slate-300 px-4 py-2 font-semibold"
+                className="brand-button-secondary"
               >
-                Cancel
+                Atšaukti
               </button>
               <button
                 type="submit"
-                className="rounded-lg bg-indigo-600 px-4 py-2 font-semibold text-white"
+                className="brand-button"
               >
-                Save teacher
+                Išsaugoti mokytoją
               </button>
             </div>
           </form>

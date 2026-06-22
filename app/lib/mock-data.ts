@@ -16,6 +16,19 @@ export type PaymentStatus = "Paid" | "Unpaid";
 export type ContractStatus = "Signed" | "Not signed";
 export type AttendanceStatus = "Present" | "Absent";
 
+export const MONTH_LABELS: Record<SchoolMonth, string> = {
+  September: "Rugsėjis",
+  October: "Spalis",
+  November: "Lapkritis",
+  December: "Gruodis",
+  January: "Sausis",
+  February: "Vasaris",
+  March: "Kovas",
+  April: "Balandis",
+  May: "Gegužė",
+  June: "Birželis",
+};
+
 export type Student = {
   id: number;
   firstName: string;
@@ -83,26 +96,26 @@ export const initialData: DashboardData = {
   groups: [
     {
       id: 1,
-      name: "English Beginners",
-      schedule: "Mon & Wed · 16:00",
+      name: "Minecraft pradedantiesiems",
+      schedule: "Pirmadienį ir trečiadienį · 16:00",
       teacherId: 1,
     },
     {
       id: 2,
-      name: "English Advanced",
-      schedule: "Tue & Thu · 18:00",
+      name: "Minecraft pažengusiems",
+      schedule: "Antradienį ir ketvirtadienį · 18:00",
       teacherId: 1,
     },
     {
       id: 3,
-      name: "Math Explorers",
-      schedule: "Saturday · 10:00",
+      name: "Minecraft kūrėjai",
+      schedule: "Šeštadienį · 10:00",
       teacherId: 2,
     },
     {
       id: 4,
-      name: "Creative Writing",
-      schedule: "Friday · 17:00",
+      name: "Minecraft programuotojai",
+      schedule: "Penktadienį · 17:00",
       teacherId: 3,
     },
   ],
@@ -116,7 +129,7 @@ export const initialData: DashboardData = {
       email: "emma.johnson@example.com",
       minecraftEmail: "emma.minecraft@example.com",
       minecraftPassword: "Creeper!12",
-      notes: "Prefers building exercises.",
+      notes: "Labiausiai mėgsta statymo užduotis.",
       parentName: "Sarah Johnson",
       parentEmail: "sarah.johnson@example.com",
       groupId: 1,
@@ -132,7 +145,7 @@ export const initialData: DashboardData = {
       email: "noah.williams@example.com",
       minecraftEmail: "noah.minecraft@example.com",
       minecraftPassword: "Diamond!11",
-      notes: "Needs help with commands.",
+      notes: "Reikia pagalbos su komandomis.",
       parentName: "Daniel Williams",
       parentEmail: "daniel.williams@example.com",
       groupId: 1,
@@ -180,7 +193,7 @@ export const initialData: DashboardData = {
       email: "sophia.miller@example.com",
       minecraftEmail: "sophia.minecraft@example.com",
       minecraftPassword: "Redstone!14",
-      notes: "Works best near the teacher.",
+      notes: "Geriausiai dirba šalia mokytojo.",
       parentName: "Laura Miller",
       parentEmail: "laura.miller@example.com",
       groupId: 2,
@@ -240,19 +253,19 @@ export const initialData: DashboardData = {
     {
       id: 1,
       name: "Anna Smith",
-      email: "anna@classflow.test",
+      email: "anna@baltastriusis.lt",
       password: "teacher123",
     },
     {
       id: 2,
       name: "Mark Evans",
-      email: "mark@classflow.test",
+      email: "mark@baltastriusis.lt",
       password: "teacher123",
     },
     {
       id: 3,
       name: "Julia Reed",
-      email: "julia@classflow.test",
+      email: "julia@baltastriusis.lt",
       password: "teacher123",
     },
   ],

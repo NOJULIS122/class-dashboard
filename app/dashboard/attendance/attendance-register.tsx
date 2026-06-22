@@ -38,19 +38,19 @@ export default function AttendanceRegister() {
   if (availableGroups.length === 0) {
     return (
       <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-sm">
-        <p className="font-semibold text-slate-900">No assigned groups</p>
+        <p className="font-bold text-[#19407a]">Nėra priskirtų grupių</p>
         <p className="mt-2 text-sm text-slate-500">
-          An administrator must assign a group to this teacher.
+          Administratorius turi priskirti bent vieną grupę šiam mokytojui.
         </p>
       </div>
     );
   }
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white shadow-sm">
-      <div className="grid gap-3 border-b border-slate-200 p-4 sm:grid-cols-2">
-        <label className="text-sm font-semibold text-slate-700">
-          Group
+    <div className="brand-card overflow-hidden">
+      <div className="grid gap-3 border-b border-[#d9eefb] bg-[#f7fcff] p-4 sm:grid-cols-2">
+        <label className="text-sm font-bold text-[#19407a]">
+          Grupė
           <select
             value={activeGroupId}
             onChange={(event) => setSelectedGroupId(Number(event.target.value))}
@@ -63,8 +63,8 @@ export default function AttendanceRegister() {
             ))}
           </select>
         </label>
-        <label className="text-sm font-semibold text-slate-700">
-          Date
+        <label className="text-sm font-bold text-[#19407a]">
+          Data
           <input
             type="date"
             value={selectedDate}
@@ -76,29 +76,29 @@ export default function AttendanceRegister() {
 
       <div className="overflow-x-auto">
         <table className="w-full min-w-[1100px] text-left text-sm">
-          <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
+          <thead className="bg-[#eef9ff] text-xs uppercase tracking-wide">
             <tr>
-              <th className="px-4 py-3 font-semibold">Name</th>
-              <th className="px-4 py-3 font-semibold">Last name</th>
-              <th className="px-4 py-3 font-semibold">Age</th>
-              <th className="px-4 py-3 font-semibold">Minecraft email</th>
-              <th className="px-4 py-3 font-semibold">Minecraft password</th>
-              <th className="px-4 py-3 font-semibold">Notes</th>
-              <th className="px-4 py-3 text-center font-semibold">Present</th>
+              <th className="px-4 py-3 font-semibold">Vardas</th>
+              <th className="px-4 py-3 font-semibold">Pavardė</th>
+              <th className="px-4 py-3 font-semibold">Amžius</th>
+              <th className="px-4 py-3 font-semibold">Minecraft el. paštas</th>
+              <th className="px-4 py-3 font-semibold">Minecraft slaptažodis</th>
+              <th className="px-4 py-3 font-semibold">Pastabos</th>
+              <th className="px-4 py-3 text-center font-semibold">Dalyvavo</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
             {groupStudents.length === 0 && (
               <tr>
                 <td colSpan={7} className="p-6 text-center text-slate-500">
-                  This group has no students.
+                  Šioje grupėje mokinių nėra.
                 </td>
               </tr>
             )}
             {groupStudents.map((student) => {
               const isPresent = records[student.id] === "Present";
               return (
-                <tr key={student.id} className="hover:bg-slate-50">
+                <tr key={student.id} className="hover:bg-[#f7fcff]">
                   <td className="whitespace-nowrap px-4 py-3 font-semibold text-slate-900">
                     {student.firstName}
                   </td>
@@ -116,9 +116,9 @@ export default function AttendanceRegister() {
                           minecraftEmail: event.target.value,
                         })
                       }
-                      aria-label={`${student.firstName} Minecraft email`}
-                      className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
-                      placeholder="Minecraft email"
+                      aria-label={`${student.firstName} Minecraft el. paštas`}
+                      className="w-full rounded-xl border border-[#cfe6f5] bg-white px-3 py-2 text-sm text-[#52789c] outline-none focus:border-[#0099ff] focus:ring-2 focus:ring-[#0099ff]/10"
+                      placeholder="Minecraft el. paštas"
                     />
                   </td>
                   <td className="min-w-48 px-3 py-2">
@@ -131,9 +131,9 @@ export default function AttendanceRegister() {
                           minecraftPassword: event.target.value,
                         })
                       }
-                      aria-label={`${student.firstName} Minecraft password`}
-                      className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 font-mono text-sm text-slate-700 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
-                      placeholder="Password"
+                      aria-label={`${student.firstName} Minecraft slaptažodis`}
+                      className="w-full rounded-xl border border-[#cfe6f5] bg-white px-3 py-2 font-mono text-sm text-[#52789c] outline-none focus:border-[#0099ff] focus:ring-2 focus:ring-[#0099ff]/10"
+                      placeholder="Slaptažodis"
                     />
                   </td>
                   <td className="min-w-64 px-3 py-2">
@@ -146,9 +146,9 @@ export default function AttendanceRegister() {
                           notes: event.target.value,
                         })
                       }
-                      aria-label={`${student.firstName} notes`}
-                      className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
-                      placeholder="Add a note"
+                      aria-label={`${student.firstName} pastabos`}
+                      className="w-full rounded-xl border border-[#cfe6f5] bg-white px-3 py-2 text-sm text-[#52789c] outline-none focus:border-[#0099ff] focus:ring-2 focus:ring-[#0099ff]/10"
+                      placeholder="Pridėti pastabą"
                     />
                   </td>
                   <td className="px-4 py-3 text-center">
@@ -163,11 +163,11 @@ export default function AttendanceRegister() {
                           event.target.checked ? "Present" : "Absent",
                         )
                       }
-                      aria-label={`Mark ${student.firstName} ${student.lastName.slice(
+                      aria-label={`Pažymėti, kad ${student.firstName} ${student.lastName.slice(
                         0,
                         3,
-                      )} present`}
-                      className="h-6 w-6 accent-emerald-600"
+                      )} dalyvavo`}
+                      className="h-6 w-6 accent-[#0099ff]"
                     />
                   </td>
                 </tr>
@@ -177,17 +177,17 @@ export default function AttendanceRegister() {
         </table>
       </div>
 
-      <div className="flex items-center justify-between border-t border-slate-200 bg-slate-50 px-4 py-3">
-        <p className="text-xs font-medium text-emerald-700">
-          Saved automatically
+      <div className="flex items-center justify-between border-t border-[#d9eefb] bg-[#f7fcff] px-4 py-3">
+        <p className="text-xs font-bold text-[#0099ff]">
+          Išsaugoma automatiškai
         </p>
         <span className="text-sm font-semibold text-slate-700">
           {groupStudents.filter((student) => records[student.id] === "Present")
             .length}{" "}
-          present ·{" "}
+          dalyvavo ·{" "}
           {groupStudents.filter((student) => records[student.id] !== "Present")
             .length}{" "}
-          absent
+          nedalyvavo
         </span>
       </div>
     </div>
